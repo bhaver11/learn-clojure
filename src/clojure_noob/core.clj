@@ -65,11 +65,12 @@
      (cons (+ (fib (- i 1)) (fib (- i 2))) my-arr))))
 
 
+
 (fn fib
   [i my-arr]
   (if (< i 3)
     (cons 1 my-arr)
-    (cons (+ (fib (- i 1) (fib (- i 2))))
+    (cons (+ (fib (- i 1) (fib (- i 2)))))))
 
 
 
@@ -116,7 +117,9 @@
 
 (defn my-take
   ([n arr]
-   (my-take n arr []))
+   (if (< (count arr) n)
+     arr
+     (my-take n arr [])))
   ([n arr my-arr]
    (if (zero? n)
      my-arr
@@ -182,13 +185,14 @@
 
 (my-sort [11 2 2 3 4354 5 455 533 ])
 
-
+;;conj implementation
 
 (defn my-conj [target &  value]
    (into target (into [] value)))
 
 (my-conj [ 2 3 4] [1])
 
+;; into implementation
 
 (defn my-into [target value]
   (apply conj target value))
@@ -197,7 +201,7 @@
 
 
 
-
+;; min implementation
 
 
 (defn my-min-help [arr min]
@@ -256,8 +260,7 @@
     (recur (rest arr) (rest mparr) (conj hmap (vector (first arr) (first mparr))))))
 
 
-(defn f1 [f arr]
-  (sortby (h-map arr (map f arr) []) [] ))
+
 
 (defn min-by
   ([arr]
@@ -275,19 +278,14 @@
 
 
 
-(defn sortby [arr my-arr]
+(defn f1 [arr my-arr]
   (if (empty? arr)
     my-arr
-    (sortby (remove-by arr (min-by arr)) (conj my-arr (first (min-by arr))))))
+    (f1 (remove-by arr (min-by arr)) (conj my-arr (first (min-by arr))))))
 
+(defn mysortby [f arr]
+  (f1 (h-map arr (map f arr) []) [] ))
 
-(f1 count ["aaa" "bb" "c" "dd"])
+(mysortby count ["aaa" "bb" "c" "dd"])
 
 ;; sort by implementation ends here
-
-(def a (h-map [1 2 3 4] ["aa" "bbb"] []))
-
-
-(remove-by a [1 "aa"])
-
-(rest a)
