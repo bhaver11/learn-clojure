@@ -1,0 +1,17 @@
+Reflection 13th july
+
+1. To implement recursion, first implement the base or the stopping condition.
+2. Ctrl-Alt-k kills an entire expression.
+3. When unsure about the number of arguments that will be passed to a function we use &, as in (defn func [ arg1 & rest] , the rest of the arguments are stored in 'rest' as a sequence.
+4. Concat takes two sequences as arguments. We cannot concat a sequence and a single number.
+5. Concat takes more than two sequences , while conj and cons take one sequence and one or more numbers.
+6. Compliment is a special type of function which takes a function as an argument and returns a function as well.
+7. Ctrl-Shift-k also kills an entire expression.
+
+
+Mistakes
+1. Used defn instead of def while using compliment function to create another function.
+2. While writing my-complement function, returned the expression (not f) instead of a function.
+
+
+Reflection 14th july
