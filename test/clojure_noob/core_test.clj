@@ -72,3 +72,5 @@
 (expect/expect [3 2 1 4] (my-map count ["aaa" "bb" "q" "1234"]))
 
 (expect/expect [true false true true] (my-map odd? [1 2 5 7]))
+
+(expect/expect [1 7] (remove-odd [1 1 5 7]))

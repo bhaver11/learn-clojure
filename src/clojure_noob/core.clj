@@ -286,6 +286,28 @@
 (defn mysortby [f arr]
   (f1 (h-map arr (map f arr) []) [] ))
 
-(mysortby count ["aaa" "bb" "c" "dd"])
+(mysortby count ["aaa" "bb" "c" "d"])
 
 ;; sort by implementation ends here
+
+
+
+(defn repeat-list
+  ([n arr]
+   (repeat-list n 0 arr []))
+  ([n m arr my-arr]
+   (if (empty? arr)
+     my-arr
+     (if (zero? n)
+       (repeat-list m n (rest arr) my-arr)
+       (repeat-list (dec n) (inc m) arr (conj my-arr (first arr)))))))
+
+(defn remove-odd
+  ([arr]
+   (remove-odd true arr []))
+  ([flag arr my-arr ]
+   (if (empty? arr)
+     my-arr
+     (if flag
+       (remove-odd (not flag) (rest arr) my-arr)
+       (remove-odd (not flag) (rest arr) (conj my-arr (first arr)))))))
