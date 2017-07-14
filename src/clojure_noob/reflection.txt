@@ -20,3 +20,4 @@ Reflection 14th july
 2. Writing the test case makes us understand the function input, output and behaviour better.
 3. We can use test libraries to write tests, clojure has a inbuilt test library called clojure.test
 4. Expectations is a library to write and check tests, auto-expectations makes the job easier by running the tests everytime a test file or core file is modified and saved and lists the tests which were failed.
+5.When a test fails, expectations also shows how the expected and actual outputs differ.

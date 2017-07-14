@@ -54,8 +54,21 @@
 
 (expect/expect [1 2 3] (my-take 4 [1 2 3]))
 
-(expect/expect [] (my-take 0 [1 2 3 4]))
+(expect/expect [] (my-take -1 [1 2 3 4]))
 
 ;;my-drop tests
 
-(expect/expect [])
+(expect/expect [3 2 3] (my-drop 3 [1 1 7 3 2 3]))
+
+
+;;my-reduce test
+
+(expect/expect 12 (my-reduce + [1 2 3 6]))
+
+(expect/expect 36 (my-reduce * [1 2 3 6]))
+
+;;my-map test
+
+(expect/expect [3 2 1 4] (my-map count ["aaa" "bb" "q" "1234"]))
+
+(expect/expect [true false true true] (my-map odd? [1 2 5 7]))

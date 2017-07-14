@@ -121,7 +121,7 @@
      arr
      (my-take n arr [])))
   ([n arr my-arr]
-   (if (zero? n)
+   (if (<= n 0)
      my-arr
      (my-take (dec n) (rest arr) (conj my-arr (first arr))))))
 
