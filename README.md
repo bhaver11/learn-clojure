@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # clojure-noob
 
 FIXME: description
@@ -34,3 +35,7 @@ Copyright © 2017 FIXME
 
 Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.
+=======
+# learn-clojure
+Clojure codes
+>>>>>>> ce81a6c69f8f6fe62f3d815ff4061060a354065d
