@@ -1,0 +1,29 @@
+data structure - map - indicating if pegged, and connections of the position.
+function to generate traingular numbers 1 3 6 10 15 and so on.
+(defn tri*
+  ([] (tri* 0 1))
+  ([sum n]
+   (let [new-sum (+ sum n)
+        (cons new-sum (lazy-seq (tri* new-sum (inc n)
+
+
+def a tri variable with take
+
+triangular? checks wether the number is a triangular using take while,
+and comparing the last number with the passed number.
+
+row-tri , takes a row number and returns the last triangular no. of that row
+
+row-num, takes a postion and returns the row number it belongs to
+inc count take-while
+
+
+connect takes a board, a position, destination and neighbour and connect the postion
+and destination through the neighbour by creating a nested map
+
+connect-right, connect-down-right, connect-down-left . call connect funtion to connect
+the position to all the possible neighbours
+
+
+add-pos : pegs the position and performs connections
+takes a position, maps pegged: true, reduces the map using all three connect functions.

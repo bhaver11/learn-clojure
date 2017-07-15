@@ -40,3 +40,10 @@ Reflection :
 5.Creating a lot of intermediate values while running a recursive program does not crash it because internally clojure's immutable data structures are implemented using structural sharing.
 6.Combining functions so that the return value of one function is passed as an argument to another function is called functional composition.
 7.Int function rounds up a number to the lower integer. Ex. (int 4.7) = 4
+8.Since pure functions return the same value for the same argument, we can use 'memoize' to cache the results of the function, so when next time the funciton is called it returns the stored result. This saves the time and cost of calling the function again.
+9.Like get-in is used to retreive a value from a nested map, assoc-in is used to create a nested map.
+10.Reduce function can be used to compose functions, by passing it a sequence of functions.
+11.lazy-seq is used when we need a conceptually infinate list. We then use 'take n' to get the first n numbers from the infinate list.
+12.The members of the lazy sequence are computed only when they are required. When a member is required clojure also computes the next 31 members and keeps ready for better performance.
+13.Range is a lazy sequence generator, while take materializes a lazy sequence. Most other functions work with lazy sequence and give lazy sequence.
+14.if-let : lets you check a condition and bind its value if truthy to a name at once.

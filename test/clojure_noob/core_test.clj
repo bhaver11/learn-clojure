@@ -1,6 +1,7 @@
 (ns clojure-noob.core-test
   (:require #_[clojure.test :refer :all]
             [clojure-noob.core :refer :all]
+            #_[clojure-noob.peg-game :refer :all]
             [expectations :as expect]))
 
 #_(deftest a-test
@@ -81,3 +82,5 @@
 (expect/expect 10 (add-dec 1 2 3 5))
 
 (expect/expect 2 (multyfn 5 2))
+
+(expect/expect true (triangular? 10))
