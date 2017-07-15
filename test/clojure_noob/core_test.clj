@@ -74,3 +74,10 @@
 (expect/expect [true false true true] (my-map odd? [1 2 5 7]))
 
 (expect/expect [1 7] (remove-odd [1 1 5 7]))
+
+(expect/expect 7 (mult-int 2 3))
+
+
+(expect/expect 10 (add-dec 1 2 3 5))
+
+(expect/expect 2 (multyfn 5 2))

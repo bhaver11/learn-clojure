@@ -311,3 +311,25 @@
      (if flag
        (remove-odd (not flag) (rest arr) my-arr)
        (remove-odd (not flag) (rest arr) (conj my-arr (first arr)))))))
+
+
+
+(defn comp-help
+  [func args]
+  (if (empty? func)
+    args
+    (comp-help (rest func)  ((first func) args))))
+
+
+(defn my-comp
+  [& func]
+  (fn composed
+    ([& args]
+     (comp-help (rest (reverse func)) (apply (first (reverse func)) args) ))
+    ))
+
+(def mult-int (my-comp inc *))
+
+(def add-dec (my-comp dec +))
+
+(def multyfn (my-comp inc dec int /))

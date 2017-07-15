@@ -23,3 +23,20 @@ Reflection 14th july
 5.When a test fails, expectations also shows how the expected and actual outputs differ.
 6.To replace all the occurences of a string with another string we can use 'M-%', then we type the text to be replaced press enter, followed by replacement text then press 'y' or 'n' for each occurence or '!' to replace all further occurences.
 7.Write the test for a function, before writing the test function.
+
+
+15th july
+
+TO DO :
+1.Read chapter 5
+2.Implement comp function
+3.Write the game.
+
+Reflection :
+1.While writing tests, we divide the whole task into pure functions, and one impure function which deals with input output or database.
+2.Pure functions are referentially transparent i.e. their output depends only on their arguments and on immutable data.
+3.Pure functions do not create side effects. However we need impure functions to create visible output ex. println is an impure function.
+4.When using recursion, each recursive call to the function creates a new scope in which the arguments are bind to different values and not mutated.
+5.Creating a lot of intermediate values while running a recursive program does not crash it because internally clojure's immutable data structures are implemented using structural sharing.
+6.Combining functions so that the return value of one function is passed as an argument to another function is called functional composition.
+7.Int function rounds up a number to the lower integer. Ex. (int 4.7) = 4
