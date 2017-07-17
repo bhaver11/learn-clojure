@@ -47,3 +47,28 @@ Reflection :
 12.The members of the lazy sequence are computed only when they are required. When a member is required clojure also computes the next 31 members and keeps ready for better performance.
 13.Range is a lazy sequence generator, while take materializes a lazy sequence. Most other functions work with lazy sequence and give lazy sequence.
 14.if-let : lets you check a condition and bind its value if truthy to a name at once.
+15.Partial can be used when we have to apply multiple parameters to a function many times but one or more parameters remain the same always.
+
+
+17th july
+TODO
+1.chapter 6
+2.peg-game
+
+Reflections:
+
+If you do not have time to do it correctly, you definately do not have time to do it wrong.
+Namespace helps to find a given object (function or data) with its name.
+Anything we write is treated as a symbol by clojure unless we quote it.
+def creates a association between the variable name and the variable itself in the current namespace's map.
+When we call def again with the same variable name, it gets binded to the new variable and the previous binding is lost.
+'in-ns' is used to switch to a namespace if it exits and if not then create the namespace and switch to it.
+To use functions and data from other namespaces we have to use fully qualified symbol i.e. namespace/name.
+Calling 'refer' with a namespace symbol lets you refer to the corresponding namespace's object wihtout having to use fully qualified sybols.
+'defn-' defines a private function which can be used only within the namespace in which it is defined and cannot be refered from another namespace.
+'alias' can be used to sorten a namespace name for using fully qualified symbols
+We can use 'require' to use functions from other namespaces, we can call refer after that to use the functions directly.
+'use' does the job of require and refer at once.
+'refer-clojure' is used to refer to clojure.core, but when we are in user namespace, clojure.core is refered automatically.
+Also when we use 'ns'macro, clojure.core is refered by default.
+We don't have to quote symbols within ns.
