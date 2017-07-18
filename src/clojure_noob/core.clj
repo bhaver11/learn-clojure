@@ -1,5 +1,7 @@
 (ns clojure-noob.core
+
   (:gen-class))
+#_(use 'clojure.contrib.math)
 
 
 (defn -main
@@ -56,17 +58,17 @@
 
 
 
-(defn fib
+#_(fn fib
   ([i]
    (fib i [1 1]))
   ([i my-arr]
    (if (< i 3)
      my-arr
-     (cons (+ (fib (- i 1)) (fib (- i 2))) my-arr))))
+     (cons (+ (fib (- i 1)) (fib (- i 2))) my-arr))) 4)
 
 
 
-(fn fib
+#_(fn fib
   [i my-arr]
   (if (< i 3)
     (cons 1 my-arr)
@@ -333,3 +335,111 @@
 (def add-dec (my-comp dec +))
 
 (def multyfn (my-comp inc dec int /))
+
+
+(reduce +  (filter #(or (= (mod % 3) 0) (= (mod % 5) 0)) (range 1 1000) ))
+
+
+(defn fib
+  ([i]
+   (fib i [1 2]))
+  ([i my-arr]
+   (if (< (count my-arr) i)
+     (fib i (conj my-arr (+ (last my-arr) (nth my-arr (- (count my-arr) 2)))))
+     my-arr)))
+
+
+
+
+(defn fib-not-great
+  ([n]
+   (fib-not-great n [1 2]))
+  ([n my-arr]
+   (if (>= (+ (last my-arr) (nth my-arr (- (count my-arr) 2) ) ) n )
+     my-arr
+     (fib-not-great n (conj my-arr (+ (last my-arr) (nth my-arr (- (count my-arr) 2))))))))
+(defn sum-fib-even
+  [n]
+  (reduce + (filter even? (fib-not-great n))))
+
+(defn prime?
+  ([num]
+   (prime? num 2 false))
+  ([num i flag]
+   (if (or (= num 0) (= num 1) (> i (/ num 2)) flag)
+     (not flag)
+     (prime? num (inc i) (= (mod num i) 0)))))
+
+(defn prime-list
+  [num]
+  (filter prime? (range 2 (inc (int (/ num 2))))))
+
+(defn factor-list
+  [num]
+  (filter #(= 0 (mod num %)) (range 1 (inc (int (/ num 2))))))
+
+(defn largest-prime-factor
+  [num]
+  (last (filter prime? (factor-list num))))
+
+
+
+
+
+(defn larg-prime-factor
+  ([num]
+   (larg-prime-factor num 2 (Math/sqrt num)))
+  ([num n sqr-root]
+   (println num n sqr-root)
+   (if  (<= num sqr-root)
+     (if (= num 1)
+       n
+
+       num)
+     (if (= 0 (mod num n))
+       (larg-prime-factor (/ num n) n sqr-root)
+       (larg-prime-factor num (inc n) sqr-root)))))
+
+
+(defn palindrome?
+  [num]
+  (if (= 0 (compare (into [] (str num)) (into [] (reverse (str num)))))
+    true
+    false))
+
+(defn sum-square
+  []
+  (let [sum-square (reduce + (map #(* % %) (range 1 101)))
+        sum (reduce + (range 1 101))]
+    (- (* sum sum) sum-square)))
+
+(defn gcd
+  [a b]
+  (if (= 0 b)
+    a
+    (if (= 0 a)
+      b
+      (gcd b (mod a b)))))
+
+
+(defn lcm
+  [a b]
+  (/ (* a b) (gcd a b)))
+
+(defn lcm-arr
+  [arr]
+  (reduce lcm arr))
+
+(lcm-arr (range 1 21))
+
+
+(defn isprime?
+  [n]
+  (if (or (= n 0) (= n 1))
+    true
+    (some #(= 0 (mod n %)) (range 2 (/ n 2)))))
+
+
+(defn nth-prime
+  [n]
+  (last (take (+ n 1) (filter #(not (isprime? %)) (range)))))

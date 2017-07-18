@@ -83,4 +83,34 @@
 
 (expect/expect 2 (multyfn 5 2))
 
-(expect/expect true (triangular? 10))
+#_(expect/expect true (triangular? 10))
+
+
+(expect/expect [1 2 3 5 8] (fib-not-great 10))
+
+(expect/expect 10 (sum-fib-even 10))
+
+#_(expect/expect [2 3 5 7 11] (prime-nos 12))
+
+(expect/expect true (prime? 17))
+
+(expect/expect false (prime? 35))
+
+(expect/expect [2 3 5 7] (prime-list 20))
+
+(expect/expect [2 3 5 7] (prime-list 14))
+
+(expect/expect [1 2 4 5 10] (factor-list 20))
+
+(expect/expect 29 (largest-prime-factor 13195))
+
+
+(expect/expect true (palindrome? 123321))
+
+(expect/expect 5 (larg-prime-factor 15))
+
+(expect/expect 5 (gcd 10 5))
+
+(expect/expect 1 (gcd 5 7))
+
+(expect/expect 2520 (lcm-arr (range 1 11)))
