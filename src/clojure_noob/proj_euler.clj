@@ -110,3 +110,18 @@
 (defn nth-prime
   [n]
   (last (take (+ n 1) (filter #(not (isprime? %)) (range)))))
+
+
+;;problem 9, pythagorean triplets whose sum is 10000
+(defn pyth
+  "Returns product of pythagoream triplets with given sum"
+  [sum]
+  (for [a (range 1 (/ sum 2))
+                  b (range (inc a) (/ sum 2))
+                  :let [c (- sum a b)]
+                  :when (= (* c c)
+                           (+ (* a a) (* b b)))]
+             (* a b c)))
+
+
+

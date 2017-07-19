@@ -147,3 +147,7 @@
 (expect/expect nil (isprime? 17))
 
 (expect/expect true (isprime? 35))
+
+(expect/expect '(60) (pyth 12))
+
+(expect/expect '(31875000) (pyth 1000))
