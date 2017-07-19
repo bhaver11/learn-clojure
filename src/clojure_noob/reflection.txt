@@ -72,3 +72,19 @@ We can use 'require' to use functions from other namespaces, we can call refer a
 'refer-clojure' is used to refer to clojure.core, but when we are in user namespace, clojure.core is refered automatically.
 Also when we use 'ns'macro, clojure.core is refered by default.
 We don't have to quote symbols within ns.
+
+
+19th july
+
+Reflection
+Stackoverflow occurs when we have a recursive function and it is called a large number of times.
+In case of functions which work over a very large data (ex. 10001 prime) we should try use inbuilt functions rather than recursion to avoid stackoverflow.
+'Meta-x + undo-tree-visualize' can be used to easily navigate through undo history and choose what we want to replace.
+Use 'let' when you have to compute a value multiple times or when a function produces side effects.
+Variable and function names should be self-explanatory, when they can't be use comment or documentation.
+'letfn' is used to create local function which are only accessible within the function where defined.
+Documentation string should be written before the parameters list of a function.
+range, map etc all work on lazy sequences and return a lazy sequence.
+Try to use inbuilt functions instead of writing your own recursive function as far as possible.
+'narrow' is a minor mode which shows only the highlighted part of the text and hides other. the shortcuts are 1. C-x n n to narrow down. 2. C-x n w to widen
+'some' can also be used to return a value other than true and nil if used with a proper function.

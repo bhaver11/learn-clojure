@@ -337,10 +337,12 @@
 (def multyfn (my-comp inc dec int /))
 
 
+;;problem 1, sum of multiples of 3 and 5
+
 (reduce +  (filter #(or (= (mod % 3) 0) (= (mod % 5) 0)) (range 1 1000) ))
 
 
-(defn fib
+#_(defn fib
   ([i]
    (fib i [1 2]))
   ([i my-arr]
@@ -349,8 +351,8 @@
      my-arr)))
 
 
-
-
+;;problem 2
+;; gives fibonacci numbers not greater than n
 (defn fib-not-great
   ([n]
    (fib-not-great n [1 2]))
@@ -358,10 +360,13 @@
    (if (>= (+ (last my-arr) (nth my-arr (- (count my-arr) 2) ) ) n )
      my-arr
      (fib-not-great n (conj my-arr (+ (last my-arr) (nth my-arr (- (count my-arr) 2))))))))
+
+;;sum of even fib numbers
 (defn sum-fib-even
   [n]
   (reduce + (filter even? (fib-not-great n))))
 
+;;problem 3 first try but did not work
 (defn prime?
   ([num]
    (prime? num 2 false))
@@ -370,7 +375,7 @@
      (not flag)
      (prime? num (inc i) (= (mod num i) 0)))))
 
-(defn prime-list
+#_(defn prime-list
   [num]
   (filter prime? (range 2 (inc (int (/ num 2))))))
 
@@ -381,65 +386,3 @@
 (defn largest-prime-factor
   [num]
   (last (filter prime? (factor-list num))))
-
-
-
-
-
-(defn larg-prime-factor
-  ([num]
-   (larg-prime-factor num 2 (Math/sqrt num)))
-  ([num n sqr-root]
-   (println num n sqr-root)
-   (if  (<= num sqr-root)
-     (if (= num 1)
-       n
-
-       num)
-     (if (= 0 (mod num n))
-       (larg-prime-factor (/ num n) n sqr-root)
-       (larg-prime-factor num (inc n) sqr-root)))))
-
-
-(defn palindrome?
-  [num]
-  (if (= 0 (compare (into [] (str num)) (into [] (reverse (str num)))))
-    true
-    false))
-
-(defn sum-square
-  []
-  (let [sum-square (reduce + (map #(* % %) (range 1 101)))
-        sum (reduce + (range 1 101))]
-    (- (* sum sum) sum-square)))
-
-(defn gcd
-  [a b]
-  (if (= 0 b)
-    a
-    (if (= 0 a)
-      b
-      (gcd b (mod a b)))))
-
-
-(defn lcm
-  [a b]
-  (/ (* a b) (gcd a b)))
-
-(defn lcm-arr
-  [arr]
-  (reduce lcm arr))
-
-(lcm-arr (range 1 21))
-
-
-(defn isprime?
-  [n]
-  (if (or (= n 0) (= n 1))
-    true
-    (some #(= 0 (mod n %)) (range 2 (/ n 2)))))
-
-
-(defn nth-prime
-  [n]
-  (last (take (+ n 1) (filter #(not (isprime? %)) (range)))))

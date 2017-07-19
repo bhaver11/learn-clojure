@@ -1,6 +1,7 @@
 (ns clojure-noob.core-test
   (:require #_[clojure.test :refer :all]
             [clojure-noob.core :refer :all]
+            [clojure-noob.proj-euler :refer :all]
             #_[clojure-noob.peg-game :refer :all]
             [expectations :as expect]))
 
@@ -96,16 +97,44 @@
 
 (expect/expect false (prime? 35))
 
-(expect/expect [2 3 5 7] (prime-list 20))
+#_(expect/expect [2 3 5 7] (prime-list 20))
 
-(expect/expect [2 3 5 7] (prime-list 14))
+#_(expect/expect [2 3 5 7] (prime-list 14))
 
 (expect/expect [1 2 4 5 10] (factor-list 20))
 
 (expect/expect 29 (largest-prime-factor 13195))
 
 
-(expect/expect true (palindrome? 123321))
+#_(expect/expect true (palindrome? 123321))
+
+
+
+
+
+;; new test cases
+
+;; first problem, multiples of 3 and 5 below 1000
+
+(expect/expect 233168 (sum-multiples 3 5 1000))
+
+(expect/expect 78 (sum-multiples 3 5 20))
+
+(expect/expect 110110 (sum-multiples 7 11 1000))
+
+;; second problem, sum of even-valued terms in fibonacci below 4 million
+(expect/expect 4613732 (fib-sum 4000000))
+
+
+;;third problem, palindrome
+
+(expect/expect true (palin? 44))
+
+(expect/expect false (palin? 998001))
+
+(expect/expect 906609 (prob3))
+
+
 
 (expect/expect 5 (larg-prime-factor 15))
 
@@ -114,3 +143,7 @@
 (expect/expect 1 (gcd 5 7))
 
 (expect/expect 2520 (lcm-arr (range 1 11)))
+
+(expect/expect nil (isprime? 17))
+
+(expect/expect true (isprime? 35))
