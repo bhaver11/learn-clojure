@@ -88,3 +88,15 @@ range, map etc all work on lazy sequences and return a lazy sequence.
 Try to use inbuilt functions instead of writing your own recursive function as far as possible.
 'narrow' is a minor mode which shows only the highlighted part of the text and hides other. the shortcuts are 1. C-x n n to narrow down. 2. C-x n w to widen
 'some' can also be used to return a value other than true and nil if used with a proper function.
+
+
+
+20th july
+
+Today all the functions which i wrote, i did them using inbuilt functions and without recursion.
+Now it's easier to think in terms of inbuilt functions of clojure.
+
+':when' keyword is used in for loop to check for a condition and return that value when true.
+Instead of 'filter (not function)' we should use 'remove'
+A list can be created using the 'list' function.
+Java functions like Integer.ParseInt can be used within clojure.
