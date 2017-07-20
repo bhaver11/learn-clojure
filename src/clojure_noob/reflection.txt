@@ -100,3 +100,8 @@ Now it's easier to think in terms of inbuilt functions of clojure.
 Instead of 'filter (not function)' we should use 'remove'
 A list can be created using the 'list' function.
 Java functions like Integer.ParseInt can be used within clojure.
+'re-seq' returns a lazy sequence of successive matched of pattern in a string.
+'partition' is used to create subsequences from a sequence, we can specify the size and offset of the subsequences.
+'(take (drop )' is equivalent to partition.
+
+Completed all the 12 problems of project euler, implemented my-range function, solved problems of 4 clojure upto 37.

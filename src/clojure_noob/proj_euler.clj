@@ -118,7 +118,7 @@
 (defn num-to-list
   "Converts a number to list of it's digits"
   [num]
-  (map (fn [^Charaqcter c] (Character/digit c 10)) (str num)))
+  (map (fn [^Character c] (Character/digit c 10)) (str num)))
 
 (defn prob8
   "Returns the largest product of n adjacent digits in a given number"
@@ -237,3 +237,27 @@
   (first (drop-while
          #(< (count (n-divisors %)) 100)
          (lazy-triag))))
+
+
+
+;; 4clojure problem 31
+
+(defn pack
+  ([arr] (pack arr '() '()))
+  ([arr sub-arr result]
+   (println arr sub-arr result)
+   (if (empty? arr)
+     (reverse (cons sub-arr result))
+     (if (empty? sub-arr)
+       (pack (rest arr) (cons (first arr) sub-arr) result)
+       (if (= (first arr) (last sub-arr))
+         (pack (rest arr) (cons (first arr)  sub-arr) result)
+         (pack arr '() (cons sub-arr result)))))))
+
+
+(defn my-range
+  ([start end] (my-range start end '()))
+  ([num end result]
+   (if (>= num end)
+     (reverse result)
+     (my-range (inc num) end (conj result num)))))
