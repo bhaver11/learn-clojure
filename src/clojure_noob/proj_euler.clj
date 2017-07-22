@@ -1,4 +1,8 @@
-(ns clojure-noob.proj-euler)
+(ns clojure-noob.proj-euler
+  (:require [clojure.java.io :refer :all]
+            [clojure.string :as str]))
+
+
 
 ;;problem 1
 ;;sum of all multiples of x and y below n
@@ -261,3 +265,175 @@
    (if (>= num end)
      (reverse result)
      (my-range (inc num) end (conj result num)))))
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; codechef problems start here
+
+;;problem 1 , ATM
+
+(defn take-ip
+  "Reads space separated strings from file, returns a list of corresponding number"
+  [fname]
+  (let [content (slurp (str "resources/" fname))
+        input (str/split content #"[\s]")]
+    (map #(Integer/parseInt %) input)))
+
+
+(defn atm
+  "Reads input from given file name, input has two parts
+  1. Withdrawal amount
+  2. Initial account balance
+  Returns the account balance after attempted transaction."
+  [fname]
+  (let [input (take-ip "problem1")
+        withdraw (first input)
+        balance (second input)]
+    (if (not= 0 (rem withdraw 5)) ;; withdrawal amount should be a multiple of 5
+      balance
+      (if (> withdraw balance)
+        balance
+        ;;0.5 is the transaction fees which gets subracted from balance
+        (- balance withdraw 0.5)))))
+
+
+;; problem 2; function returns the number of intergers divisible by the given number in input.
+
+
+(defn inputs-div-k
+  "The input begins with two positive integers n k The next n lines of input contain one positive integer each.
+  Function returns the number of integers divisible by k"
+  [fname]
+  (let [input (take-ip "problem2")
+        k (second input)]
+    (count (filter
+            #(= 0 (rem % k))
+            (drop 2 input)))))
+
+
+;;;;;; problem 3 ;; number of trailing zeros in the facotrial of number
+
+#_(defn fact
+  "Returns factorial of a number"
+  [num]
+  (reduce * (range 1 (inc num))))
+
+
+(defn n-zero
+  "Returns number of trailing zero's in the factorial of a number"
+  ([num] (n-zero num 0 5))
+  ([num  zeros power-5]
+   (let [q (quot num power-5)]
+     (if (>= q 1)
+       (n-zero num (+ zeros q) (* 5 power-5))
+       zeros))))
+
+
+(defn prob3-cc
+  "Returns number of zeros in the factorial of each number from the input file."
+  []
+  (let [input (take-ip "problem3")]
+    (map n-zero input)))
+
+;; 4 clojure problems
+
+(defn my-interpose
+  "interposes zeros between elements in a sequence"
+  [arr]
+  (drop-last (mapcat #(list %1 0) arr)))
+
+
+(defn drop-nth
+  "Drops every nth element"
+  ([arr n] (drop-nth arr n [] ))
+  ([arr n result]
+   (if (empty? arr)
+     result
+     (drop-nth (drop n arr) n (concat result (take (- n 1) arr))))))
+
+
+
+(defn rev-interleave
+  "reverse interleaves a sequence into number of sequences"
+  [arr n]
+  (let [part (partition n arr)]
+    (apply map list part)))
+
+
+(defn rotate
+  "Rotates a sequence in either direction"
+  [n arr]
+  (letfn [(rot-help [n arr]
+            (let [tail (take n arr)
+                  head (drop n arr)]
+              (concat head tail)))]
+    (if (> n 0)  ;; negative rotation possible
+      (rot-help (mod n
+                     (count arr))
+                arr)
+      (reverse (rot-help (mod (- n)
+                             (count arr))
+                         (reverse arr))))))
+
+
+
+;; funciton which returns another function with its arguments flipped.
+
+(defn fn-flip
+  [f]
+  (fn [& args]
+    (apply f (reverse args))))
+
+;; What's in the name problem solution.
+
+
+
+(defn take-ip-string
+  [fname]
+  (let [content (slurp (str "resources/" fname))
+        input (str/split content #"[\n]")]
+    input))
+#_(def a (take-ip-string "problem4"))
+
+
+ (defn initials
+  "Takes a name as an input and returns initial letter in capital followed by a period."
+  [name]
+  (str (str/capitalize (first name)) ". " ))
+
+
+(defn trim-string
+  "Takes name as input, either only first name, or first and last or first middle and last
+  ans returns formatted name with initials and lastname."
+  [ipstring]
+  (if (= 1 (count ipstring))
+    (str/capitalize (first ipstring))
+    (let [lastname (str/capitalize (last ipstring))
+          prefix (map initials (drop-last ipstring))]
+      (str (apply str prefix) lastname))))
+
+;; main function
+
+
+(defn what-in-name
+  [fname]
+  (let [input (take-ip-string fname)
+        ipstring (map #(str/split % #" ") input)]
+    (map trim-string ipstring)))
+
+
+
+;; minimum difference of two elements in a sequence
+
+;; for racing horses problem. https://www.codechef.com/problems/HORSES
+
+
+#_(defn min-dif
+  "Returns the minimum difference between two elements in a sequence"
+  [arr]
+  (let [sort-arr (sort arr)]
+    (apply min (map #(- %2 %1) sort-arr (rest sort-arr)))))
+
+;;yet to do it properly

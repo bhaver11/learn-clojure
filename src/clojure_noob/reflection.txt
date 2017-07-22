@@ -105,3 +105,40 @@ Java functions like Integer.ParseInt can be used within clojure.
 '(take (drop )' is equivalent to partition.
 
 Completed all the 12 problems of project euler, implemented my-range function, solved problems of 4 clojure upto 37.
+
+
+
+
+
+21th July.
+
+Reflection.
+
+'git' is a de-centralized version control system.
+In decentralized vcs origin need not be a server, it cab be a directory like USB drive too.
+Every commit is an object in git.
+'git remote --verbose show' shows the current fetch and pull origin.
+To avoid conflicts use rebase and then push.
+Pull, pulls code and the meta-data too.
+'clojure.pprint/pprint' prints the contents of a nested list in a readable manner.
+'->>' is called threading macro and it's used to make the code readable in topdown manner, it passes the return of first expression to the next and so on.
+'->' does the same, except that it sends the result of an expression to the first argument of next.
+'some ->>' if any value is nill, then it returns nill and doesn't pass to the next expression. if not then it returns the return of last expressiom. It can be used to avoid 'null pointer exception'
+'slurp' is used to read a text file.
+Java's parseInt method can be used in clojure too, to get a number from a string input.
+'Interleave' returns a lazy-seq of the first item in each seqence then the second etc.
+'Interpose' reutrns a lazy seq of the elements of input sequence separated by the given separator.
+'drop-last' drops the last element of a sequence.
+
+22nd July
+
+Reflection
+
+'distinct' function returns a lazy sequence with the duplicates in the input sequence removed.
+'distinct?' returns true if no two of the given arguments are equal.
+(iterate f x) returns a lazy sequence of x, (f x), (f (f x)) etc.
+partition-by takes a function and a sequence, applies function to each value in sequence and splits it each time function returns a new value.
+partition-all is used when the sequence may have partitions with fever than n items in the end.
+'contains?' returns true if the given key is present in the map or sequence.
+'compare' compares two values and returns a negative or a postive number when not equal depending upon which is greater and zero when both are equal.
+'remove' function takes a predicate function and a list, and removes all the elements from the list which do not satisfy the predicate function.
