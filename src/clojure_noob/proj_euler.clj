@@ -472,6 +472,7 @@
 
 
 (defn angles-in-rad
+  "Takes hour and minutes and returns the corresponding angle in radians"
   [hh mm]
   (let [hr-angle-d (- (+
                        (* hh 30)
@@ -482,6 +483,8 @@
 
 
 (defn co-ordinates
+  "takes angle and length of clock hands and returns the co-ordinates with respect to
+  origin, which is (10,10) in this case"
   [angle len]
   (let [x  (+ 10 (* len  (Math/cos angle)))
         y  (+ 10 (* len  (Math/sin angle)))]
@@ -489,6 +492,8 @@
 
 
 (defn time-to-angle
+  "converts string into numerical time gets angles, through function call
+  Then maps the co-ordinates of all the times."
   [time]
   (let [ [hh mm] (map #(Integer/parseInt %) time)
          angles  (angles-in-rad hh mm)]
@@ -513,6 +518,7 @@
 
 
 (defn create-board
+  "creates a nxn board, i.e. a nested vector with 1 and 0's"
   ([n] (create-board [] []  n) )
   ([arr sub-arr n]
    (if (= n (count arr))
@@ -539,6 +545,7 @@
 
 
 (defn upd-board
+  "calls get-neighbours and updates the board according to the condition."
   ([arr n] (upd-board arr n 0 0 [] []))
   ([arr n x y sub-arr new-arr]
    (if (= n (count new-arr))
@@ -565,6 +572,8 @@
 
 
 (defn encrypt-help
+  "takes sorted key, then according to the index of each element of the sorted key, in actual key
+  rearranges the sub-arrays in plain text"
   [plain key sort-key cipher]
   (if (empty? key)
     cipher
