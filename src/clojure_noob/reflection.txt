@@ -150,3 +150,9 @@ partition-all is used when the sequence may have partitions with fever than n it
 'get-in' can be given a default value to return when the given index is not found in the array.
 'if' 'when' 'and' etc are not fuctions but special forms, in which the expressions are not evaluated before passing.
 macros are used to define special forms.
+
+
+
+
+inc' is similar to inc , but the former does not give integer overflow when given a very big number.
+zipmap is used to create a map by giving a sequence of keys and values.
