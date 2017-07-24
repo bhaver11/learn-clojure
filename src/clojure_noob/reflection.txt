@@ -132,7 +132,12 @@ Java's parseInt method can be used in clojure too, to get a number from a string
 
 22nd July
 
-Reflection
+Thank you so much for your valuable feedback sir, i tried to implement all the modifications that you mentioned. 
+I wanted to ask you about ^Character c, but that time you were not around and i forgot later, i'll come to you tomorrow for explanation.
+
+Reflection of 22nd july.
+
+
 
 'distinct' function returns a lazy sequence with the duplicates in the input sequence removed.
 'distinct?' returns true if no two of the given arguments are equal.
@@ -142,3 +147,6 @@ partition-all is used when the sequence may have partitions with fever than n it
 'contains?' returns true if the given key is present in the map or sequence.
 'compare' compares two values and returns a negative or a postive number when not equal depending upon which is greater and zero when both are equal.
 'remove' function takes a predicate function and a list, and removes all the elements from the list which do not satisfy the predicate function.
+'get-in' can be given a default value to return when the given index is not found in the array.
+'if' 'when' 'and' etc are not fuctions but special forms, in which the expressions are not evaluated before passing.
+macros are used to define special forms.

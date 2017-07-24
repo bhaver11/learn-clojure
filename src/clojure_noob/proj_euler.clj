@@ -571,7 +571,7 @@
     (let [next-pos (.indexOf sort-key
                              (first key))
           next-ele (nth plain next-pos)]
-      (recur plain (rest key) sort-key (str cipher next-ele)))))
+      (recur plain (rest key) sort-key (str cipher (apply str next-ele))))))
 
 
 
@@ -579,4 +579,4 @@
   [plain key]
   (let [sort-key (sort key)
         key-len (count key)]
-    (encrypt-help (partition plain key-len) key  sort-key "")))
+    (encrypt-help (partition key-len plain) key  sort-key "")))
