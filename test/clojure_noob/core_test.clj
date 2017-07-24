@@ -144,9 +144,9 @@
 
 (expect/expect 2520 (lcm-arr (range 1 11)))
 
-(expect/expect nil (isprime? 17))
+(expect/expect true (isprime? 17))
 
-(expect/expect true (isprime? 35))
+(expect/expect false (isprime? 35))
 
 (expect/expect 60 (pyth 12))
 
@@ -161,12 +161,12 @@
 (expect/expect [10 1 2 5] (n-divisors 10))
 
 
-(expect/expect 89.5 (atm "problem1"))
+#_(expect/expect 89.5 (atm "problem1"))
 
-(expect/expect 4 (inputs-div-k "problem2"))
+#_(expect/expect 4 (inputs-div-k "problem2"))
 
 
-(expect/expect '(0 14 24 253 5861 2183837) (prob3-cc))
+#_(expect/expect '(0 14 24 253 5861 2183837) (prob3-cc))
 
 (expect/expect [1 0 2 0 3] (my-interpose [1 2 3]))
 
@@ -191,3 +191,29 @@
 
 
 (expect/expect "M. K. Gandhi" (trim-string ["moHandas" "karamchand" "gandhi"]))
+
+
+
+(expect/expect '(0.0 1.5707963267948966) (angles-in-rad 3 0))
+
+(expect/expect '(2.53 2.09 (angles-in-rad 10 55)))
+
+#_(expect/expect '(0 270) (time-to-angle '("3" "0")))
+
+#_(expect/expect '(120 145.41 (time-to-angle '(10 55))))
+
+(expect/expect [10 19] (co-ordinates 7.8 9 ))
+
+(expect/expect [16 10] (co-ordinates 6.2 6))
+
+(def array [[1 0 1 1] [1 0 0 1] [0 1 1 0] [1 0 1 0]])
+
+(expect/expect 1 (get-neighbours array 0 0))
+
+(expect/expect 5 (get-neighbours array 1 1))
+
+
+(expect/expect [[1 0 1] [1 0 1] [1 0 1]] (upd-board [[1 0 1] [1 1 1] [0 0 1]] 3))
+
+
+(expect/expect "lohe" (encrypt "helo" "ba"))

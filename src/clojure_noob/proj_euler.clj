@@ -54,19 +54,21 @@
 ;;problem 4
 ;;largest palindrome by multiplication of two 3 digit numbers
 
+;;used let , instead of calling str twice after feedback.
 (defn palin?
   "returns true if a number is a palindrome, false otherwise"
   [num]
-  (= (str num)
-     (clojure.string/reverse (str num))))
+  (let [str-num (str num)]
+    (= str-num
+       (str/reverse str-num))))
 
 
-
+;; changed the range of j after feedback to avoid duplicate mult products.
 (defn prob3
   "returns the largers palindrome formed by multiplication of two 3 digit numbers."
   []
   (apply max (for [i (range 100 1000)
-                   j (range 100 1000)
+                   j (range (inc i) 1000)
                    :let [mult (* i j)]
                    :when (palin? mult)]
                mult)))
@@ -76,13 +78,24 @@
 
 
 ;;problem 5
-(defn gcd
+
+
+#_(defn gcd
   [a b]
   (if (= 0 b)
     a
     (if (= 0 a)
       b
       (gcd b (mod a b)))))
+
+;;implemented gcd using cond as mentioned in feedback
+
+(defn gcd
+  [a b]
+  (cond
+    (= b 0) a
+    (= a 0) b
+    :else (gcd b (mod a b))))
 
 
 (defn lcm
@@ -103,11 +116,13 @@
     (- (* sum sum) sum-square)))
 
 ;;problem 7
+
+;; used not before if, to return the boolean value as expected by the function name.
 (defn isprime?
   [n]
-  (if (even? n)
-    true
-    (some #(= 0 (mod n %)) (range 3 (/ n 2)))))
+  (not (if (even? n)
+         true
+         (some #(= 0 (mod n %)) (range 3 (/ n 2))))))
 
 
 (defn nth-prime
@@ -129,7 +144,8 @@
   [n num]
   (let [num-list (num-to-list num)]
     (apply max (map #(reduce *
-                             (take n (drop % num-list))) (range 0 (- (count num-list) n))))))
+                             (take n (drop % num-list)))
+                    (range 0 (- (count num-list) n))))))
 
 
 
@@ -282,6 +298,7 @@
     (map #(Integer/parseInt %) input)))
 
 
+;; used destructing to get withdraw and balance from input instead of first and second after feedback.
 (defn atm
   "Reads input from given file name, input has two parts
   1. Withdrawal amount
@@ -289,8 +306,7 @@
   Returns the account balance after attempted transaction."
   [fname]
   (let [input (take-ip "problem1")
-        withdraw (first input)
-        balance (second input)]
+        [withdraw balance] input]
     (if (not= 0 (rem withdraw 5)) ;; withdrawal amount should be a multiple of 5
       balance
       (if (> withdraw balance)
@@ -351,7 +367,7 @@
   ([arr n result]
    (if (empty? arr)
      result
-     (drop-nth (drop n arr) n (concat result (take (- n 1) arr))))))
+     (recur (drop n arr) n (concat result (take (- n 1) arr))))))
 
 
 
@@ -437,3 +453,130 @@
     (apply min (map #(- %2 %1) sort-arr (rest sort-arr)))))
 
 ;;yet to do it properly
+
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;clock hand problem
+
+(defn take-ip
+  "Reads colan separated strings from file, returns a list of [hh mm] vectors"
+  [fname]
+  (let [content (slurp (str "resources/" fname))
+        input (str/split content #"[\s]")]
+    (map #(str/split % #":") input)))
+
+
+
+(defn angles-in-rad
+  [hh mm]
+  (let [hr-angle-d (- (+
+                       (* hh 30)
+                       (/ mm 12))
+                      90)
+        mm-angle-d  (- (* mm 6) 90)]
+    (list  (Math/toRadians (- hr-angle-d)) (Math/toRadians (-  mm-angle-d)))))
+
+
+(defn co-ordinates
+  [angle len]
+  (let [x  (+ 10 (* len  (Math/cos angle)))
+        y  (+ 10 (* len  (Math/sin angle)))]
+    [(Math/round x) (Math/round y)]))
+
+
+(defn time-to-angle
+  [time]
+  (let [ [hh mm] (map #(Integer/parseInt %) time)
+         angles  (angles-in-rad hh mm)]
+    (map co-ordinates angles [6 9])))
+
+
+
+(first (take-ip "clock-hand"))
+
+(defn main-clock
+  [fname]
+  (let [input (take-ip fname)]
+    (print input)
+    (map time-to-angle input)))
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; game of life
+
+
+
+(defn create-board
+  ([n] (create-board [] []  n) )
+  ([arr sub-arr n]
+   (if (= n (count arr))
+     arr
+     (if (= n  (count sub-arr))
+       (recur (conj arr sub-arr) []  n)
+       (recur arr (conj sub-arr
+                        (rand-int 2)) n)))))
+
+
+(defn get-neighbours
+  "Returns the sum of neighbours"
+  [arr x y]
+  (reduce +
+          (map (fn [i j]
+                 (get-in arr [i j] 0))
+               [(- x 1) x (+ x 1)
+                (- x 1) (+ x 1)
+                (- x 1) x (+ x 1)]
+               [(- y 1) (- y 1) (- y 1)
+                 y  y
+                (+ y 1) (+ y 1) (+ y 1)])))
+
+
+
+(defn upd-board
+  ([arr n] (upd-board arr n 0 0 [] []))
+  ([arr n x y sub-arr new-arr]
+   (if (= n (count new-arr))
+     new-arr
+     (if (= n (count sub-arr))
+       (upd-board arr n (inc x) 0 [] (conj new-arr sub-arr))
+       (let [sum-nbr (get-neighbours arr x y)]
+         (if (or (= sum-nbr 2) (= sum-nbr 3))
+           (upd-board arr n x (inc y)
+                      (conj sub-arr 1)
+                      new-arr)
+           (upd-board arr n x (inc  y)
+                      (conj sub-arr 0)
+                      new-arr)))))))
+
+
+(defn print-arr
+  [arr]
+  (when (not (empty? arr))
+    (println (first arr))
+    (recur (rest arr))))
+
+
+
+
+(defn encrypt-help
+  [plain key sort-key cipher]
+  (if (empty? key)
+    cipher
+    (let [next-pos (.indexOf sort-key
+                             (first key))
+          next-ele (nth plain next-pos)]
+      (recur plain (rest key) sort-key (str cipher next-ele)))))
+
+
+
+(defn encrypt
+  [plain key]
+  (let [sort-key (sort key)
+        key-len (count key)]
+    (encrypt-help (partition plain key-len) key  sort-key "")))
