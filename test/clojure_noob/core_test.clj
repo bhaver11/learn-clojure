@@ -219,3 +219,6 @@
 (expect/expect "lohe" (encrypt "helo" "ba"))
 
 
+(expect/expect "lohe" (encrypt-2 "helo" "ba"))
+
+(expect/expect "helo" (decrypt "lohe" "ba"))

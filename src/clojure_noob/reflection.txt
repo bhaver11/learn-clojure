@@ -132,7 +132,7 @@ Java's parseInt method can be used in clojure too, to get a number from a string
 
 22nd July
 
-Thank you so much for your valuable feedback sir, i tried to implement all the modifications that you mentioned. 
+Thank you so much for your valuable feedback sir, i tried to implement all the modifications that you mentioned.
 I wanted to ask you about ^Character c, but that time you were not around and i forgot later, i'll come to you tomorrow for explanation.
 
 Reflection of 22nd july.
@@ -152,7 +152,19 @@ partition-all is used when the sequence may have partitions with fever than n it
 macros are used to define special forms.
 
 
-
+Reflection 25th July.
 
 inc' is similar to inc , but the former does not give integer overflow when given a very big number.
 zipmap is used to create a map by giving a sequence of keys and values.
+'html' is used to create static web documents which may contain link to other documents.
+There are two types of tags in HTML, block tags and inline tags. block tags have a new line at the end and beginning
+Semantic markup stresses that hierarchy should be based on the context which has several advantages, like easier for readers to read , plus also helps search engine to get the relevant content.
+current version of html is html5 which has new tags like audio, video etc.
+tags can be assigned to a class, the style of which can be controlled by a css file.
+we can assign multiple classes to the same element.
+clojurescript code compiles to javascript bytecode.
+'G-closure' library helps in optimizing the compliled javascript files.
+'minification' makes a js file smaller by removing unnecessary white spaces, comments etc. so as to reduce download time of the webpage.
+'obfuscation' helps prevent copying of code, by making it confusing ex. by making variable names non-relatable.
+All the functions of javascript can be used in clojurescript.
+The html file index.html has the path of compiled javascript file, when the html file is loaded the javascript file is run.

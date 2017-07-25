@@ -386,3 +386,28 @@
 (defn largest-prime-factor
   [num]
   (last (filter prime? (factor-list num))))
+
+
+
+(defn encrypt-2
+  "Without using recursion
+  Returns cipher text when passed plain text and key"
+  [plain key]
+  (let [sort-key (sort key)
+        plain-p (partition (count key)
+                           plain)
+        zmap (zipmap sort-key plain-p )]
+    (apply str (map #(apply str
+                            (get zmap %)) key))))
+
+
+(defn decrypt
+  "returns plain text when passed cipher and key"
+  [cipher key]
+  (let [sort-key (sort key)
+        key-char (seq (char-arr key))
+        cipher-p (partition (count key)
+                            cipher)
+        zmap (zipmap key-char cipher-p)]
+    (apply str (map #(apply str
+                            (get zmap #)) sort-key))))

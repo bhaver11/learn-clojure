@@ -1,6 +1,8 @@
 (ns clojure-noob.proj-euler
+  (:gen-class)
   (:require [clojure.java.io :refer :all]
-            [clojure.string :as str]))
+            [clojure.string :as string]))
+
 
 
 
@@ -60,7 +62,7 @@
   [num]
   (let [str-num (str num)]
     (= str-num
-       (str/reverse str-num))))
+       (string/reverse str-num))))
 
 
 ;; changed the range of j after feedback to avoid duplicate mult products.
@@ -294,7 +296,7 @@
   "Reads space separated strings from file, returns a list of corresponding number"
   [fname]
   (let [content (slurp (str "resources/" fname))
-        input (str/split content #"[\s]")]
+        input (string/split content #"[\s]")]
     (map #(Integer/parseInt %) input)))
 
 
@@ -409,7 +411,7 @@
 (defn take-ip-string
   [fname]
   (let [content (slurp (str "resources/" fname))
-        input (str/split content #"[\n]")]
+        input (string/split content #"[\n]")]
     input))
 #_(def a (take-ip-string "problem4"))
 
@@ -417,7 +419,7 @@
  (defn initials
   "Takes a name as an input and returns initial letter in capital followed by a period."
   [name]
-  (str (str/capitalize (first name)) ". " ))
+  (str (string/capitalize (first name)) ". " ))
 
 
 (defn trim-string
@@ -425,8 +427,8 @@
   ans returns formatted name with initials and lastname."
   [ipstring]
   (if (= 1 (count ipstring))
-    (str/capitalize (first ipstring))
-    (let [lastname (str/capitalize (last ipstring))
+    (string/capitalize (first ipstring))
+    (let [lastname (string/capitalize (last ipstring))
           prefix (map initials (drop-last ipstring))]
       (str (apply str prefix) lastname))))
 
@@ -436,7 +438,7 @@
 (defn what-in-name
   [fname]
   (let [input (take-ip-string fname)
-        ipstring (map #(str/split % #" ") input)]
+        ipstring (map #(string/split % #" ") input)]
     (map trim-string ipstring)))
 
 
@@ -466,8 +468,8 @@
   "Reads colan separated strings from file, returns a list of [hh mm] vectors"
   [fname]
   (let [content (slurp (str "resources/" fname))
-        input (str/split content #"[\s]")]
-    (map #(str/split % #":") input)))
+        input (string/split content #"[\s]")]
+    (map #(string/split % #":") input)))
 
 
 
@@ -589,3 +591,38 @@
   (let [sort-key (sort key)
         key-len (count key)]
     (encrypt-help (partition key-len plain) key  sort-key "")))
+
+
+
+#_(defn encrypt-2
+  "Without using recursion
+  Returns cipher text when passed plain text and key"
+  [plain key]
+  (let [sort-key (sort key)
+        plain-p (partition (/ (count plain)
+                              (count key))
+                           plain)
+        zmap (zipmap sort-key plain-p )]
+    (apply str (map #(apply str
+                            (get zmap %)) key))))
+
+(defn encrypt-decrypt
+  "returns cipher when passes plain text key and sorted key, from encypt funciton
+   returns plain text when passed cipher sorted key and key in order from decrypt function."
+  [text key sort-key]
+  (let [text-p (partition (/ (count text)
+                               (count key))
+                            text)
+        zmap (zipmap sort-key text-p)]
+    (apply str (map #(apply str
+                            (get zmap %)) key))))
+
+
+
+(defn encrypt
+  [plain key]
+  (encrypt-decrypt plain key (sort key)))
+
+(defn decrypt
+  [cipher key]
+  (encrypt-decrypt cipher (sort key) key))
