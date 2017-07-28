@@ -411,3 +411,112 @@
         zmap (zipmap key-char cipher-p)]
     (apply str (map #(apply str
                             (get zmap #)) sort-key))))
+
+
+
+(defn make-rand-arr
+  [n]
+  (let [limit (* n n)
+        arr (range 0 (/ limit 2))]
+    (shuffle (concat arr arr))))
+
+
+(defn make-board
+  ([n] (make-board {} (make-rand-arr n) 1))
+  ([board rand-arr pos]
+   (if (empty? rand-arr)
+     board
+     (make-board (assoc board pos (str (first rand-arr))) (rest rand-arr) (inc pos)))))
+
+
+;;;;;;;;;;;;;;;;;;;;;; luhn algorithm
+
+
+
+(defn num-to-list
+  "Converts a string to a list of numbers, if the string has ? it is converted to -1"
+  [num]
+   (mapv (fn [^Character c] (Character/digit c 10)) (str num)))
+
+
+(defn rev-interleave
+  "reverse interleaves a sequence into number of sequences"
+  [arr n]
+  (let [part (partition n arr)]
+    (apply map list part)))
+
+
+(defn luhn-check
+  "Applies the luhn algorithm , returns true if the sum is divisible by 10, false otherwise"
+  [num]
+  (let [[odd even] (rev-interleave num 2)
+        odd-sum (map #(if (> 10 (* % 2))
+                        (* % 2)
+                        (- (* % 2) 9))
+                     odd)]
+
+    (= 0 (mod (+ (reduce + even)
+                 (reduce + odd-sum))
+              10))))
+
+
+
+(defn missing-num
+  "if -1 is present then it replaces it with digits 0-9 and then checks for luhn test, returns the first list which passes the test."
+  [num-list]
+  (letfn [(replace-by [y]
+            (map (fn [x]
+                   (if (= x -1)
+                     y
+                     x))
+                 num-list))]
+    (let [replaced-arr (map replace-by
+                            (range 0 10))]
+      #_(println replaced-arr)
+      (some (fn [arr]
+              (if (luhn-check arr)
+                arr)) replaced-arr))))
+
+
+
+(defn swap
+  "swaps two given indexes in a vector"
+  [arr i1 i2]
+  (assoc arr i2 (arr i1) i1 (arr i2)))
+
+
+(defn swap-error
+  "swaps adjacent digits, one pair at a time then checks for luhn test, if true returns the list , else swaps next to digits and repeats."
+  [num-arr n]
+  (let [swapped-arr (map (fn [x y]
+                           (swap num-arr
+                                 x
+                                 y))
+                         (range 0 (- n 1)) (range 1 n))]
+    (some (fn [arr]
+            (if (luhn-check arr)
+              arr)) swapped-arr)))
+
+
+(defn luhn-main
+  "Gets debit card number as a string.
+  If it has a missing digit, replaces that digit with a valid digit
+  If not it checks if two numbers are swapped and returns the valid number after deswapping them. "
+  [num-string]
+  (let [num-arr (num-to-list num-string)]
+    (println num-arr)
+    (if (some neg? num-arr)
+      (missing-num num-arr)
+      (swap-error num-arr 16))))
+
+
+
+
+(defn make-board
+  ([] (make-board {} 1))
+  ([bmap index]
+   (if (= index 10)
+     (assoc bmap :next-move "x")
+     (recur (assoc bmap index "") (inc index)))))
+
+(def board (atom (make-board)))

@@ -168,3 +168,25 @@ clojurescript code compiles to javascript bytecode.
 'obfuscation' helps prevent copying of code, by making it confusing ex. by making variable names non-relatable.
 All the functions of javascript can be used in clojurescript.
 The html file index.html has the path of compiled javascript file, when the html file is loaded the javascript file is run.
+
+
+
+Reflection 28th July.
+
+Immutability makes it dificult for the front end to maintain states, so we use Software Transactional memory (STM)
+STM is usually used only in the front end, because back end has database to maintain states.
+STM improves speed, because front end does not depend upon backend for maintaining states.
+STM has properties like, atomicity isolation consistency and durability.
+Atomicity means that a partiular transaction is indivisible , it must either complete or fail but can't be in an intermediate state.
+Isolation- Two transactions are independent of each other.
+Consistency - Changes in the databse should be consistent everywhere.
+Durability - Changes in the db should happen in all the copies of the db.
+Atom is used in stm, it is syncronous and uncordinated.
+(atom nil
+      []
+      {})
+      is the basic syntax to create an atom, an atom can store a number, an array or a map.
+When we want to store multiple values in an atom we can use map effectively.
+To change values in an atom , we use the swap! function, which updates the value of the atom, using the function supplied to it. Ex. (swap! a inc) will increment the value in atom a.
+Value of an atom can be accessed using '@' , ex. @a will give the value i.e. a number, vector , map etc.
+Value of an atom can be reset to any value using reset! function.
