@@ -520,3 +520,34 @@
      (recur (assoc bmap index "") (inc index)))))
 
 (def board (atom (make-board)))
+
+
+
+(def board (atom {0 {0 {:value ""
+                                :disabled false}
+                             1 {:value "x"
+                                :disabled false}
+                             2 {:value ""
+                                :disabled false}}
+                          1 {0 {:value ""
+                                :disabled false}
+                             1 {:value ""
+                                :disabled false}
+                             2 {:value ""
+                                :disabled false}}
+                          2 {0 {:value ""
+                                :disabled false}
+                             1 {:value ""
+                                :disabled false}
+                             2 {:value ""
+                                :disabled false}}
+                          :next-mov 0}))
+
+
+(defn get-rows
+  []
+  (for [x (range 3)
+        y (range 3)
+
+        :let [val  (get-in @board [x y :value])]]
+    val))

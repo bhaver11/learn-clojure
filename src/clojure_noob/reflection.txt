@@ -190,3 +190,18 @@ When we want to store multiple values in an atom we can use map effectively.
 To change values in an atom , we use the swap! function, which updates the value of the atom, using the function supplied to it. Ex. (swap! a inc) will increment the value in atom a.
 Value of an atom can be accessed using '@' , ex. @a will give the value i.e. a number, vector , map etc.
 Value of an atom can be reset to any value using reset! function.
+
+
+
+Reflection 31st July.
+
+(atom 0 :validator even?) When :validator is used while defining an atom we can only assign those values to the atom which satisfy the function following :validator keyword.
+Use mapv instead of map in clojure-script, because map returns a lazy sequence and javascript doesn't understand lazy sequences. mapv returns a vector which is not lazy.
+Whenever there is repitation in a html file, we can use functions to render the html.
+React is a library developed by facebook for front-end development. It changes the DOM depending upon an input.
+React uses a virtual DOM and calulates the diff betweeen current and previous DOM and re-writes only the changes improving the performance.
+Reagent provides binding, render function and r-atom to use react in clojure-script
+As soon as the value of the r-atom is modified, it calls the render function and renders the changes into the html file.
+Functions which define a component in reagent are called using square brackets. If we use round brackets then the function will be called each time even if nothing has changed in the component.
+An exclamation mark in function name is a convention to signify that the function causes side-effects like modifying an atom.
+peek function returns the first value of a list, and last value of a vector. In case of vectors it is much more efficient than last.
