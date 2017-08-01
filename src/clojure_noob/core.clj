@@ -410,7 +410,7 @@
                             cipher)
         zmap (zipmap key-char cipher-p)]
     (apply str (map #(apply str
-                            (get zmap #)) sort-key))))
+                            (get zmap %)) sort-key))))
 
 
 
@@ -551,3 +551,61 @@
 
         :let [val  (get-in @board [x y :value])]]
     val))
+
+;;;;;; TRAVERSE A MATRIX IN SPIRAL FORM
+
+(def status (atom {:direction :right
+                   :cur-pos {:x 0
+                             :y 0}
+                   :count 1}))
+
+(defn arr-maker
+  "Returns an array with positions where the direction needs to be changed"
+  ([size] (arr-maker (dec size) [size] 1))
+  ([size arr toggle]
+   (if (zero? size)
+     arr
+     (if (zero? toggle)
+       (recur (dec size) (conj arr (+ (last arr) size)) 1)
+       (recur size (conj arr (+ (last arr) size)) 0)))))
+
+(def change-on (atom (arr-maker 6)))
+
+(defn change-direction
+  "changes the direction to next-dir"
+  [next-dir]
+  (swap! status assoc :direction next-dir))
+
+
+
+(defn upd-gen
+  "updates the postion i.e. x or y co-ordinate depending upon current direction"
+  [count pos next-dir f]
+  (swap! status update-in [:cur-pos pos] f)
+  (swap! status update :count inc)
+  (if (some #(= % count) @change-on)
+    (change-direction  next-dir)))
+
+
+(defn upd-pos
+  "Main function which will be called when button is clicked"
+  []
+  (let [direction (get @status :direction)
+        count (get @status :count)]
+    (cond
+      (= direction :right) (upd-gen count :x :down inc)
+      (= direction :down)  (upd-gen count :y :left inc)
+      (= direction :left)  (upd-gen count :x :up dec)
+      (= direction :up)    (upd-gen count :y :right dec))))
+
+
+
+(defn test-func
+  "Test function to test for a board of size 10
+  calls upd-pos untill all postions are done."
+  []
+  (when-not (= 36 (get @status :count))
+
+    (println (get @status :cur-pos))
+
+    (test-func)))
