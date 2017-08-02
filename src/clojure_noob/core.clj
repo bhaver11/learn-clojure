@@ -552,12 +552,13 @@
         :let [val  (get-in @board [x y :value])]]
     val))
 
-;;;;;; TRAVERSE A MATRIX IN SPIRAL FORM
+
+;;;;;; TRAVERSE A MATRIX SPIRALLY
 
 (def status (atom {:direction :right
-                   :cur-pos {:x 0
+                   :cur-pos {:x -1
                              :y 0}
-                   :count 1}))
+                   :count 0}))
 
 (defn arr-maker
   "Returns an array with positions where the direction needs to be changed"
@@ -569,7 +570,20 @@
        (recur (dec size) (conj arr (+ (last arr) size)) 1)
        (recur size (conj arr (+ (last arr) size)) 0)))))
 
-(def change-on (atom (arr-maker 6)))
+(defn arr-maker-2
+  "Returns count on which direction needs to be changed
+  for two player spiral game.
+  Almost similar to arr-maker excpet that it decrements the
+  size by 2 instead of 1"
+  ([size] (arr-maker-2 (- size 2) [size] 1))
+  ([size arr toggle]
+   (if (zero? size)
+     arr
+     (if (zero? toggle)
+       (recur (- size 2) (conj arr (+ (last arr) size)) 1)
+       (recur size (conj arr (+ (last arr) size)) 0)))))
+
+(def change-on (atom (arr-maker-2 6)))
 
 (defn change-direction
   "changes the direction to next-dir"
@@ -583,12 +597,13 @@
   [count pos next-dir f]
   (swap! status update-in [:cur-pos pos] f)
   (swap! status update :count inc)
-  (if (some #(= % count) @change-on)
+  (if (some #(= % (get @status :count)) @change-on)
     (change-direction  next-dir)))
 
 
 (defn upd-pos
-  "Main function which will be called when button is clicked"
+  "Main function which will be called when button is clicked
+  will update the current position in the status atom"
   []
   (let [direction (get @status :direction)
         count (get @status :count)]
@@ -601,11 +616,11 @@
 
 
 (defn test-func
-  "Test function to test for a board of size 10
+  "Test function to test for a board of size 6
   calls upd-pos untill all postions are done."
   []
-  (when-not (= 36 (get @status :count))
+  (when-not (= 18 (get @status :count))
 
-    (println (get @status :cur-pos))
-
+    (upd-pos)
+    (println (get @status :cur-pos) (get @status :count))
     (test-func)))

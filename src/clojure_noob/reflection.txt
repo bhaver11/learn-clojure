@@ -205,3 +205,56 @@ As soon as the value of the r-atom is modified, it calls the render function and
 Functions which define a component in reagent are called using square brackets. If we use round brackets then the function will be called each time even if nothing has changed in the component.
 An exclamation mark in function name is a convention to signify that the function causes side-effects like modifying an atom.
 peek function returns the first value of a list, and last value of a vector. In case of vectors it is much more efficient than last.
+
+
+
+
+
+
+Reflection 2nd Aug.
+
+Whenever asking for help, while explaining your code first show the data structure which you have used.
+Use array of maps instead or map of map, to use inbuilt functions effectively. Although depending upon the use case we may use the first.
+M-x --> revert-buffer will reload the buffer from the disk.
+When we create a new project using lein with reagent template, cljc directory has all common code which can compile to java and javascript both.
+Meta-/ autocompletes a variable name or a function name by looking at the buffer above the current postion.
+We can directly de-structure a sequence into the parameter declaration of a function. Ex. (fn [[a b]]) if a sequence if passed to the fn, it will automatically get destructured to a and b.
+(map-indexed f coll) returns a lazy sequence by applying f to 0 and first element of coll, then to 1 and second element of coll and so on, until coll is exhausted. Function f should accept two arguments, index and item.
+sql databases have a structure, example a table. It requires less storage but has less flexibility.
+nosql databases store data as a collection of records , the records can be a map or a nested map.
+nosql db is useful for evolutionary programming, while sql db requires less space and is faster.
+mongodb is a nosql database it stores maps in json files.
+monger is a clojure-library which converts clojure maps into json files understandable by mongodb.
+luminus allows to create directory structure and files depending upon our type of project.
+
+
+Yesterday I implemented the spiral traversal program.
+Today I extended the logic to create the game for two players, not actually the game but the logic behind it.
+I only had to change the arr-maker function, which returns the counts at which direction should be changed.
+The only change is size is decremented by 2, instead of 1.
+
+(defn arr-maker-2
+  "Returns count on which direction needs to be changed
+  for two player spiral game.
+  Almost similar to arr-maker excpet that it decrements the
+  size by 2 instead of 1"
+  ([size] (arr-maker-2 (- size 2) [size] 1))
+  ([size arr toggle]
+   (if (zero? size)
+     arr
+     (if (zero? toggle)
+       (recur (- size 2) (conj arr (+ (last arr) size)) 1)
+       (recur size (conj arr (+ (last arr) size)) 0)))))
+
+For a board of size 6
+it will return the following
+[6 10 14 16 18]
+i.e. The positions at which directions should be changed.
+
+The other functions will remain same.
+
+For 2nd player the postions will remain same, however in the status atom, cur-pos will start from (6,5) and direction :left.
+
+So I can generalise the arr-maker function and pass 2 as a parameter to solve the problem.
+
+Tommorow after I am done with todo-list problem i'll make the clojure-script implementation of the game.
