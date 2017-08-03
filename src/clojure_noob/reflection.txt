@@ -258,3 +258,18 @@ For 2nd player the postions will remain same, however in the status atom, cur-po
 So I can generalise the arr-maker function and pass 2 as a parameter to solve the problem.
 
 Tommorow after I am done with todo-list problem i'll make the clojure-script implementation of the game.
+
+
+Reflection of 3rd Aug.
+
+monger.core/connect function connects to a database and returns a connection. We can alos provide host and port number to connect, otherwise it takes localhost and default port.
+To choose a database within the connection mongo.core/get-db is used. It takes connection and database name as parameter.
+monger.collection/insert writes a record to the collection and returns a write result which can be used by other functions to check if write was successful.
+monger.collection/insert-and-return returns the document(record) inserted and not the write result.
+MongoDB internally gives a unique id to each record.
+If we insert a document without :_id key also MongoDB will mutate the document we pass to it and write an id to it.
+monger.collection/insert-batch is used to insert a batch of documents all at once.
+monger.collection/find takes a databse, collection name and query conditions and returns a db cursor we can use , but it's not in the form of clojure maps.
+find-maps function returns the result in terms of clojure maps.
+update function takes a condition and updates the record which satisfies that condtion.
+To update multiple maps with the same condition we have to write {:multi true}

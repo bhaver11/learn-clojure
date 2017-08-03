@@ -560,6 +560,7 @@
                              :y 0}
                    :count 0}))
 
+
 (defn arr-maker
   "Returns an array with positions where the direction needs to be changed"
   ([size] (arr-maker (dec size) [size] 1))
@@ -618,9 +619,11 @@
 (defn test-func
   "Test function to test for a board of size 6
   calls upd-pos untill all postions are done."
-  []
-  (when-not (= 18 (get @status :count))
-
-    (upd-pos)
-    (println (get @status :cur-pos) (get @status :count))
-    (test-func)))
+  [board]
+  (if-not (= 18 (:count @status))
+    (do
+      (upd-pos)
+      (print board)
+      (recur (conj board (vector (get-in @status [:cur-pos :x])
+                           (get-in @status [:cur-pos :y])))))
+    board))
