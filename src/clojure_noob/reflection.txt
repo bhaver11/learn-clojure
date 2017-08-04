@@ -277,6 +277,8 @@ To update multiple maps with the same condition we have to write {:multi true}
 
 Reflection of 4th Aug.
 
+Today I learned about the actual architecture of a web app including the server and client side. These are the things that i learned.
+
 Atoms should be used only to store states, i.e. store only that information that we would usually store in database. Atom should not be used to store counts etc.
 HTTP is a protocol used to trasnfer data between a server and a client. It uses the following commands 1. PUT 2. GET 3. POST 4. DELETE.
 GET - to get information from the server, usually it is used to call a pure function or idempotenent function which has no side-effects.
@@ -295,3 +297,7 @@ VIEW - receives request form CONTROLLER, sends a request to MODEL for data and a
 CONTROLLER - it recieves requests form the client and returns the response after getting the markup or json from the VIEW section.
 Ideally the bussiness logic to modify the data according to the request should be a separate unit, but it's usually incorporated within VIEW or MODEL.
 Front-End used to be simpler earlier, it only made requests and displayed markups. But now front end also has MVC model. AJAX works on the front end to update only a specific part of the page, by making a request for only that div.(partial markup)
+In clojue.data.json library json-str fuction converts a map to a json file. 
+HTTP is based on named parameters, i.e. the parameters are matched by names and not by position.
+If output is a map , in json the keys get converted to strings, to reconvert them back to keywords we use ':response-format :json' and ':keywords? true' in the get or post call.
+POST takes and entire map as a input and parameters passed to it cannot be destructured directly. We need to use get-in to get the individual parameters.
