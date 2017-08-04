@@ -401,7 +401,7 @@
                             (get zmap %)) key))))
 
 
-(defn decrypt
+#_(defn decrypt
   "returns plain text when passed cipher and key"
   [cipher key]
   (let [sort-key (sort key)

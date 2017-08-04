@@ -273,3 +273,25 @@ monger.collection/find takes a databse, collection name and query conditions and
 find-maps function returns the result in terms of clojure maps.
 update function takes a condition and updates the record which satisfies that condtion.
 To update multiple maps with the same condition we have to write {:multi true}
+
+
+Reflection of 4th Aug.
+
+Atoms should be used only to store states, i.e. store only that information that we would usually store in database. Atom should not be used to store counts etc.
+HTTP is a protocol used to trasnfer data between a server and a client. It uses the following commands 1. PUT 2. GET 3. POST 4. DELETE.
+GET - to get information from the server, usually it is used to call a pure function or idempotenent function which has no side-effects.
+POST - used when we have to update some information on the server. It usually calls an impure function like (.write/js document "1")
+The query parameters of GET have a limit of 2kb, whereas POST has no limit. POST also can upload documents to the server.
+REST says that everything is an object , adn the objects are accessed using URI or URL through GET  POST requests.
+URI and URL mean the same thing, URI is used outside web, whereas URL is used in web (HTTP)
+GET requests are bookmarked , POST are not.
+LOGIN credintials should be POST requests because , we do not want the login details to be bookmarked by the browser.
+COOKIES are used to store results of frequent computations locally , and user information.
+ON LOGIN , server generates an encrypted token for that client and sends the token to the client where it is stored in a cookie.
+HTML 5 uses local storage instead of cookies, thus is has no limit. whereas COOKIES have a limit of 4kb.
+At the back-end the server has 3 main parts, 1.MODEL 2.VIEW and 3.CONTROLLER.
+MODEL- communicates with the database, and returns the result to VIEW.
+VIEW - receives request form CONTROLLER, sends a request to MODEL for data and after recieving the data generates a markup or a json file.
+CONTROLLER - it recieves requests form the client and returns the response after getting the markup or json from the VIEW section.
+Ideally the bussiness logic to modify the data according to the request should be a separate unit, but it's usually incorporated within VIEW or MODEL.
+Front-End used to be simpler earlier, it only made requests and displayed markups. But now front end also has MVC model. AJAX works on the front end to update only a specific part of the page, by making a request for only that div.(partial markup)
