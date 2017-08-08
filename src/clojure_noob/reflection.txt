@@ -295,3 +295,24 @@ VIEW - receives request form CONTROLLER, sends a request to MODEL for data and a
 CONTROLLER - it recieves requests form the client and returns the response after getting the markup or json from the VIEW section.
 Ideally the bussiness logic to modify the data according to the request should be a separate unit, but it's usually incorporated within VIEW or MODEL.
 Front-End used to be simpler earlier, it only made requests and displayed markups. But now front end also has MVC model. AJAX works on the front end to update only a specific part of the page, by making a request for only that div.(partial markup)
+
+
+Reflection 8th Aug.
+
+UNIT-TESTING tests only one function, which usually happens to be a pure function.
+INTERGRATION-TESTING tests more than one functions at a time, i.e. it tests a flow. ex. test for  proper integration of front end and back end.
+REGRESSION is manual testing in which 1. The features are tested. 2. The whole software is tested again to make sure that the new features do not affect the rest of the code.
+The 4 Basic code environments are 1. dev 2. C.I. 3. Q.A. 4. Staging 5. Production.
+DEV environment has dirty code and dirty data.
+STAGING environment has dirty code and clean data, or actual data.
+PRODUCTION environment has clean code and clean data.
+COUNTINOUS INTEGRATION (CI) - helps in testing. Whenever a developer commits, the CI server runs all unit and integrations tests and notifies for errors if any to the developer and manager. For it to be effective coverage of tests should be more than or equal to 80 percent of the code.
+WHITE-BOX-TESTING is done by developers who know the code very well, so they test for each branch of the function which they have written.
+BLACK-BOX-TESTING is done by external users (ex. Q.A.) they only test for input and output without knowing the internal working of the functions.
+Both white box and black box testing are important for bug free code.
+When testing functions which interact with mutable data (ex. database), the state of the data can be setup prior to running the tests. This is called setup. After testing is done the data is cleared. This is called teardown.
+Setup and teardown are written for the entire file and can also be written for specific functions.
+We can add a meta-data to a function which can be used by the operating system or compiler by writing a map before the parameter declaration.
+Ex. (defn load-data "documentation" {:expectations-options :before-run} [] /function-body/)
+In web development px is an absolute unit while 'em' is a relative unit. 1 em = 100% of the parent. Ex. If parent is 16px long, then 0.5 em = 8px.
+The CSS filter property adds visual effects (like blur and saturation) to an element. Ex. filter: blur(5px) will blur an image.
