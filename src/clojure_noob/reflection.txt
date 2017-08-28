@@ -277,6 +277,8 @@ To update multiple maps with the same condition we have to write {:multi true}
 
 Reflection of 4th Aug.
 
+Today I learned about the actual architecture of a web app including the server and client side. These are the things that i learned.
+
 Atoms should be used only to store states, i.e. store only that information that we would usually store in database. Atom should not be used to store counts etc.
 HTTP is a protocol used to trasnfer data between a server and a client. It uses the following commands 1. PUT 2. GET 3. POST 4. DELETE.
 GET - to get information from the server, usually it is used to call a pure function or idempotenent function which has no side-effects.
@@ -295,6 +297,7 @@ VIEW - receives request form CONTROLLER, sends a request to MODEL for data and a
 CONTROLLER - it recieves requests form the client and returns the response after getting the markup or json from the VIEW section.
 Ideally the bussiness logic to modify the data according to the request should be a separate unit, but it's usually incorporated within VIEW or MODEL.
 Front-End used to be simpler earlier, it only made requests and displayed markups. But now front end also has MVC model. AJAX works on the front end to update only a specific part of the page, by making a request for only that div.(partial markup)
+<<<<<<< HEAD
 
 
 Reflection 8th Aug.
@@ -316,3 +319,115 @@ We can add a meta-data to a function which can be used by the operating system o
 Ex. (defn load-data "documentation" {:expectations-options :before-run} [] /function-body/)
 In web development px is an absolute unit while 'em' is a relative unit. 1 em = 100% of the parent. Ex. If parent is 16px long, then 0.5 em = 8px.
 The CSS filter property adds visual effects (like blur and saturation) to an element. Ex. filter: blur(5px) will blur an image.
+=======
+In clojue.data.json library json-str fuction converts a map to a json file.
+HTTP is based on named parameters, i.e. the parameters are matched by names and not by position.
+If output is a map , in json the keys get converted to strings, to reconvert them back to keywords we use ':response-format :json' and ':keywords? true' in the get or post call.
+POST takes and entire map as a input and parameters passed to it cannot be destructured directly. We need to use get-in to get the individual parameters.
+>>>>>>> 4ba37875120bb557d5b3bad1c355f2c60c26f9d7
+
+
+
+
+Reflection of 10th Aug.
+
+The waterfall model for product development takes a lot of time. Until the product is deployed the requirements of the user may change.
+Agile is a philosphy which says that product development should have a fast feedback loop.
+There are multiple techniques to do this, SCRUM is one of them.
+SCRUM is a rapid iterative development technique. The production is divided into smaller feature sets called sprints.
+Each sprint involves 1. Planning 2. Development 3. Testing 4.Review
+The 3 roles in scrum are 1. Product owner 2. Scrum Master 3. Team
+The 3 artifacts are 1. Product backlog - List of all features to be implemented. 2. Sprint backlog - Features to be implemented in the current sprint. 3. User stories - A detailed explanation of features.
+Three kind of meetings - 1. Planning - Done at the beginning of a sprint to plan what features will be implemented, who will work on what etc. 2. Scrum - A daily standup meeting of 10-15 mins wherein each member describes 1. What he did yesterday 2. What will he do today 3. If he is facing any problem which is blocking him. The scrum master then tries to help the team member and solve the problem.
+Review- In the end of the sprint, developers demo the app to the app owner. The app is reviewed. If the sprint is successful the features are deployed.
+Retrospective - Reflection of the sprint, if fails: why did it fail? (non-technical), if succesful : what did we do different that last time ? and planning for next sprint to be more effective.
+Phabricator is a tool that helps us use scrum. It has three main parts 1. wiki - documentation 2.Task - ticketing 3. Source code hosting - repository like github.
+
+
+;;;;;;;;;;
+
+CSS sytax consists of a selector and a declaration block. Each declaration block has a property name and value. Ex. h1 {color:blue; font-size:12px;} here h1=> selector, 'color:blue'=> declaration, 'color' => property, 'blue'=> value.
+selector can be a tag name, and id or a class. Id is prefixed with a hash '#' and class with a period (.)
+An id name and a class name cannot start with a number.
+We can also specify that only specific HTML elements should be affected by a class. Ex. p.center {}, the styling of class center will be applied to only element p.
+If multipe elements have similar styling they can be grouped together. Each selector is seperated by a comma. Ex: h1, h2, p {}
+The three ways of inserting a style sheet are 1. External style sheet 2. Internal style sheet 3. Inline style.
+Color names in css are not case-sensitive.
+(.toDateString (js/Date.) returns the current date as a string. Similarly (.toTimeString (js/Date.)) returns the current time.
+
+
+Reflection of 11th Aug.
+
+
+RE-FRAME aims to provide MVC in the front end.
+In java and other multi-threading languages all function calls are blocking calls, i.e. the caller waits for the function to return.
+Javascript is a single-threaded language, here a function is not blocked when it calls another function.
+Javascript is event-driven, every event has an handler attatched to it. Whenever the event occurs the handler is called.
+Parallelism in javascript is possible due to event loop.
+The front end has the following cycle : Dom => event-handler => Reframe-handler => change-state => view => virtual-DOM => Dom
+Event-handler listens for an event from the dom, Ex. Button click.
+Reframe handler is basicaly a write handler, which writes into the db and returns.
+In view, there are Read-subscribers which listen to a particular state in db, and once the state is updated the virtual-DOM is created and DOM is re-rendered based on the diff between the two.
+To call reframe handler we use (dispatch [:function-key :param]) ':function-key' is associated with a funciton in the handlers.cljs file, which interacts with the db.
+To read from the db, we assign a subscriber by calling,  (subscribe [:key]) this function returns an atom whenever the value corresponding to :key is changed. To assign the value to an element we use @(subscribe [:key])
+The advantage of RE-FRAME over RE-AGENT is that, if a single part of an atom changes, all the elements using any part of that atom are re-rendered in re-agent, whereas in re-frame only those elements are re-rendered which use the value of that part of the atom.
+#' is a way to explicitly specify that the name succeeding it is a function name and not a variable name.
+
+
+
+
+
+Reflection of 12th Aug.
+
+(js/prompt "message") , diplays a prompt for input and returns the input from the user.
+map can be destructured using (:keys [k1 k2] {:a "1" :b "2"}) k1 => 1 and k2 => 2
+(mc/remove) function is used to delete a document from a mongodb collection.
+In css 'margin' is the shorthand property for setting the margin properties in all directions in one declaration.
+'height' and 'width' properties do not include padding, borders, or margins; they set the height/width of the area inside the padding, border, and margin of the element.
+'max-width' property is used to set the maximum width of an element, this is better over giving 'width', when browser window width is reduced to less that width of an element.
+
+
+
+
+
+
+
+Reflection of 14th Aug.
+
+box-shadow property in css attaches one or more shadows to an element. Ex. box-shadow: 10px 10px 10px #888888 => first property is the horizontal length of shadow, second the vertical length (length from the border of the element) third property is the blur of the shadow and the fourth the color of shadow.
+The 'display' property specifies if/how an element is displayed.
+display: none will hide an element and the page will be displayed as if the element is not there.
+visibility: hidden; also hides an element. However, the element will still take up the same space as before. The element will be hidden, but still affect the layout.
+when we use 'auto' in specifying 'margin' property of an element, it tells the browser to automatically determine the margin itself, which it does by setting them equally. Ex: margin: 50px, auto; here top and bottom margin is specified to be 50px, while left and right margin is declared to be auto, so the browser finds out empty space within the parent and then assigns left and right margin equally so that the element sits centrally.
+The cursor property specifies the type of cursor to be displayed when pointing on an element.
+CSS3 gradients let you display smooth transitions between two or more specified colors. There are two types of gradients: 1. Linear Gradients (goes down/up/left/right/diagonally) 2. Radial Gradients (defined by their center)
+The 'line-height' property defines the amount of space above and below inline elements.
+The 'aget' function can be used for accessing javascript array element from clojurescript.
+'clj->js' function recursively transforms clojurescript values to javascript. sets/vectors/lists become Arrays, Keywords and Symbol become Strings, Maps become Objects.
+similarty 'js->clj' function recursively transforms javascript values to clojurescript.
+
+
+
+Reflection of 16th August.
+(keywordize-keys) recursively transforms all map keys from strings to keywords.
+when (enable-console-print!) is used in a clojurescript file, the  println statements therafter will print into to console.
+postal is a clojure library for sending emails.
+'dotimes' function repeatedly executes body with name bound to integers from 0 to n-1. Ex. (dotimes [n 5] (println n)) will print 0 to 4.
+soda-ash is a clojurescript wrapper to use semantic ui using reagent.
+
+
+
+
+Reflection of 21st August
+(every? pred coll) returns true if (pred x) is logical true for every x in coll, else false.
+noir.util.crypt is an api used to hash strings and compare them, typically used for storing passwords.
+regex "\$" signifies newline. when used with string/split it splits the string into lines.
+(type x) functon returns :type metadata of x.
+hash-set can be used as a function just like maps.
+keyword function returns a keyword with the given namespace and name.
+
+
+
+Reflection of 22nd August
+future function is used to put a process in backgroud, so that user does not have to wait for further steps.
+'validate' function takes 1. a message function for transferring error metadata into the validation result 2. a map to be validated. 3. 'forms' validations to be performed on the map. It returns a vector where the first element is the map of validation errors if any and the second is the original map augmented with the errors map.
