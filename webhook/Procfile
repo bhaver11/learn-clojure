@@ -1,0 +1,1 @@
+web: java $JVM_OPTS -cp target/uberjar/webhook.jar clojure.main -m webhook.core
