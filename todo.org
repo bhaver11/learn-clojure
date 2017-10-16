@@ -1,0 +1,92 @@
+#+SEQ_TODO: NEXT(n) TODO(t) SOMEDAY(s) | DONE(d) CANCELLED(c)
+
+
+* noodle-crm
+** TODO
+*** DONE Create wiki on phabricatorp
+*** DONE flow diagram
+*** NEXT User tasks for CRM
+** Notes
+*** warm-leads and hot-leads of one salesperson should not be transferred to other sales
+*** pricipal can take a warm lead from sales
+*** dashboard ==> teams info ==> who talked to whom
+*** warm-lead ==> person showed interest.
+*** reminder when the salesperson/principal logs in. ==> even after deadline.
+*** After lead has made payment ==> one person can call just to cross check. ==> only after verification ==> mark dead (closed).
+** feedback
+*** convert lead to parent ==> convert button ==> redirect to add child form with parent information populated.
+* bugs
+** gps
+*** DONE T1272 : USER UNABLE TO LOGIN
+**** invalid bug.
+*** DONE T1312 : inspite of adding children on webportal, children are not visible on App
+* noodle
+** admission management
+*** TODO
+**** NEXT Refactor front-end
+**** DONE Send feedback given by pranav to prady (document)
+**** DONE Referral should be an absolute value and not percentage.
+**** DONE Unique key for offers table.
+**** DONE gross rate according to the new discount flow
+**** Add referral.
+**** DONE Add sibling discount---> select child.
+**** Add finance form in edit-child.
+     To edit instalment information
+**** preview table for rd after editing rack-rate or discounts and offers
+**** DONE Fix iterative calculation on discounts
+*** feedback
+**** Preview table for rd
+     show effect of changes made by rd on fees of all schools and then submit
+**** All information on same page for rd.
+**** Admission month range
+**** DONE Iterative calculation on discounts.
+* notes
+** noodle
+*** rack-rate --> month-mult --> gross-fee --> referral and offer --> discount --> installments
+*** get value from dropdown/any other sa componenet general function
+   (-> %2
+       (js->clj :keywordize-keys true)
+       :key)
+* learnings
+** do-run
+   forces a function which returns a lazy-sequence to execute till the end without waiting.
+*** doc :
+(dorun coll) (dorun n coll)
+
+When lazy sequences are produced via functions that have side
+effects, any effects other than those needed to produce the first
+element in the seq do not occur until the seq is consumed. dorun can
+be used to force any effects. Walks through the successive nexts of
+the seq, does not retain the head and returns nil.
+
+user=> (dorun 5 (repeatedly #(println "hi")))
+hi
+hi
+hi
+hi
+hi
+hi
+nil
+** incidental complexity.
+  complexity faced while developing code in a particular language after the problem has been solved logically. Clojure has very less incidental complexity.
+* problems
+** DONE Iterative calculation on discount
+** DONE Siblings discount
+* Saturday, 14th oct
+** TODO
+*** DONE Talk to pranav sir about discounts on daycare fees  ==> call prady
+*** DONE reply to amrut sir with user tasks of crm
+*** Rebase code
+* Monday, 16th oct
+** TODO
+*** DONE create wiki doc for changes/addition adm mgmt.
+*** points 1 to 5 in admission management changes
+*** referral modal
+*** sibling discount --> add parent info too.
+*** daycare fees part on rd side.
+*** refactor front end of admission management
+*** DONE addition/changes in day-care fees ==> talk to prady
+*** write cljs and clj tests
+*** ask about rounding off of fees
+** Learn
+*** org mode ==> youtube videos
